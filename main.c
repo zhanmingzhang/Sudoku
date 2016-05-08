@@ -13,14 +13,14 @@ fp = fopen ("sudoku.cnf", "w+");
    fprintf(fp, "0\n");
 
 //size of the soduku
-int n = 4;
+int n = 9;
 int sqrtn = (int)sqrt((double)n);
 
 // Cell defineness 
 for(int r=1; r<=n; r++){
 	for(int c = 1; c<=n; c++){	
 		for(int v=1;v<=n; v++){
-		fprintf(fp, "%d ", (r-1)*16+(c-1)*4+v);
+		fprintf(fp, "%d ", (r-1)*n*n+(c-1)*n+v);
 }
 fprintf(fp, "0 \n");
 }
@@ -36,8 +36,8 @@ for (int r=1; r<=n; r++){
 	for(int v=1; v<=n; v++){
 		for(int ci=1; ci<=n-1; ci++){
 			for(int cj=ci+1; cj<=n; cj++){
-			fprintf(fp, "-%d", (r-1)*16+(ci-1)*4+v);
-			fprintf(fp, " -%d", (r-1)*16+(cj-1)*4+v);	
+			fprintf(fp, "-%d", (r-1)*n*n+(ci-1)*n+v);
+			fprintf(fp, " -%d", (r-1)*n*n+(cj-1)*n+v);	
 			fprintf(fp, " 0 \n");	
 			}
 
@@ -53,8 +53,8 @@ for (int c=1; c<=n; c++){
 	for(int v=1; v<=n; v++){
 		for(int ri=1; ri<=n-1; ri++){
 			for(int rj=ri+1; rj<=n; rj++){
-				fprintf(fp, "-%d", (rj-1)*16+(c-1)*4+v);
-				fprintf(fp, " -%d", (ri-1)*16+(c-1)*4+v);	
+				fprintf(fp, "-%d", (rj-1)*n*n+(c-1)*n+v);
+				fprintf(fp, " -%d", (ri-1)*n*n+(c-1)*n+v);	
 				fprintf(fp, " 0 \n");	
 				}
 
@@ -71,23 +71,41 @@ for (int c=1; c<=n; c++){
 
 
 //Block uniqueness
-/*
-for(int roffs=1; roffs<=sqrtn-1; roffs++){
-	for(int coffs=1; coffs<=sqrtn-1; coffs++){
-		for(int v=1;v<=n; v++){
-			for(int r=1; r<=n; r++){
-				for(int c = r+1; c<=n; c++){	
-				fprintf(fp, "-%d ", (roffs*sqrtn+r%sqrtn)*100+(coffs*sqrtn+r%sqrtn)*10+v);
-				fprintf(fp, "-%d ", (roffs*sqrtn+r%sqrtn)*100+(coffs*sqrtn+c%sqrtn)*10+v);
-				fprintf(fp, " 0 \n");
 
+for(int z=1; z<=n; z++){
+	for(int i=0; i<=sqrtn-1; i++){
+		for(int j=0;j<=sqrtn-1; j++){
+			for(int x=1; x<=sqrtn; x++){
+				for(int y=1; y<=sqrtn; y++){
+					for(int k = y+1; k<=sqrtn; k++){	
+			
+				fprintf(fp, "-%d ", (sqrtn*i+x-1)*n*n+(sqrtn*j+y-1)*n+z);
+				fprintf(fp, "-%d ", (sqrtn*i+x-1)*n*n+(sqrtn*j+k-1)*n+z);
+				fprintf(fp, "0\n");
+					}
+				}
 			}
-
 		}
 	}
+}
+
+for(int z=1; z<=n; z++){
+	for(int i=0; i<=sqrtn-1; i++){
+		for(int j=0;j<=sqrtn-1; j++){
+			for(int x=1; x<=sqrtn; x++){
+				for(int y=1; y<=sqrtn; y++){
+					for(int k = x+1; k<=sqrtn; k++){	
+						for(int l = 1; l<=sqrtn; l++){	
+				fprintf(fp, "-%d ", (sqrtn*i+x-1)*n*n+(sqrtn*j+y-1)*n+z);
+				fprintf(fp, "-%d ", (sqrtn*i+k-1)*n*n+(sqrtn*j+l-1)*n+z);
+				fprintf(fp, "0\n");
+						}
+					}
+				}
+			}
+		}
 	}
 }
-*/
  fclose(fp);
 
 return 0;
