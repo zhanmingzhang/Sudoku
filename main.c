@@ -1,20 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
- 
+#include <time.h> 
 
 int main()
 {
-FILE* fp;
 
-fp = fopen ("sudoku.cnf", "w+");
-   fprintf(fp, "p cnf ");
- //  fprintf(fp,"%d ", ncktwire);
-   fprintf(fp, "0\n");
+//initialize random number generator 
+
+  srand(time(NULL));
+
+FILE* fp;
 
 //size of the soduku
 int n = 9;
 int sqrtn = (int)sqrt((double)n);
+
+fp = fopen ("sudoku.cnf", "w+");
+   fprintf(fp, "p cnf %d ", n*n*n);
+ //  fprintf(fp,"%d ", ncktwire);
+   fprintf(fp, "0\n");
+
+// Pre assign number in the grid
+int  row, col, value; 
+int howmanypreassign = sqrtn*n;
+
+for(int preassign=1; preassign<=howmanypreassign; preassign++){
+	row = (int)(((double)rand()/(double)(RAND_MAX))*9)+1; //random number from 1 to 9
+	col = (int)(((double)rand()/(double)(RAND_MAX))*9)+1;
+	value = (int)(((double)rand()/(double)(RAND_MAX))*9)+1;
+	if(row>n) row = n;
+	if(col>n) col = n;
+	if(value>n) value = n;
+	fprintf(fp, "%d ", (row-1)*n*n+(col-1)*n+value);	
+}
+	fprintf(fp, "0 \n");
 
 // Cell defineness 
 for(int r=1; r<=n; r++){
