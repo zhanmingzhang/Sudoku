@@ -21,13 +21,19 @@ fp = fopen ("sudoku.cnf", "w+");
  //  fprintf(fp,"%d ", ncktwire);
    fprintf(fp, "0\n");
 
-// Pre assign number in the grid
+// Pre assign number in the grids
+// in the preassign session, we assign one random value in each block
 int  row, col, value; 
-int howmanypreassign = sqrtn*n;
+int howmanypreassign = n;
+int rowblock, colblock;
 
-for(int preassign=1; preassign<=howmanypreassign; preassign++){
-	row = (int)(((double)rand()/(double)(RAND_MAX))*9)+1; //random number from 1 to 9
-	col = (int)(((double)rand()/(double)(RAND_MAX))*9)+1;
+for(int preassign=0; preassign<howmanypreassign; preassign++){
+	rowblock = (int)(preassign/sqrtn)+1;
+	colblock = preassign%sqrtn+1;
+
+	row = (rowblock-1)*sqrtn+(int)(((double)rand()/(double)(RAND_MAX))*sqrtn)+1; //random number from 1 to sqrtn
+	col = (colblock-1)*sqrtn+(int)(((double)rand()/(double)(RAND_MAX))*sqrtn)+1;
+
 	value = (int)(((double)rand()/(double)(RAND_MAX))*9)+1;
 	if(row>n) row = n;
 	if(col>n) col = n;

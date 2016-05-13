@@ -27,7 +27,7 @@ for (i=1; i<=n*n*n; i++){
 */
 int c, r, k;
 
-double p = (double) rand()/RAND_MAX;
+//double p = (double) rand()/RAND_MAX;
 
 for (c=1; c<=n; c++){
 	for(r=1;r<=n;r++){
