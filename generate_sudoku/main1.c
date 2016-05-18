@@ -33,10 +33,10 @@ for (c=1; c<=n; c++){
 	for(r=1;r<=n;r++){
 		for (k=1;k<=n; k++){
 			if (numArray[n*(r-1)+n*n*(c-1)+k]>0){
-				if ((double) rand()/RAND_MAX>0.5){
+//				if ((double) rand()/RAND_MAX>0.5){
 					fprintf(fp,"%d ", k);
-				}
-				else fprintf(fp, "_ ");
+//				}
+//				else fprintf(fp, "_ ");
 			}
 		}
 
